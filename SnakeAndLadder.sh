@@ -16,7 +16,7 @@ position=0
 randomNumber=0
 randomNumber2=0
 checkPosition=0
-
+diceCounter=0
 #CHECK VALID POSITION
 function isValidPosition() {
 #CHECK IF LESS THAN 0
@@ -57,7 +57,8 @@ if [ $randomNumber -eq $IS_NOPLAY ]
 		checkPosition=$(( $position + $NOPLAY ))
 		position=$checkPosition
 fi
-echo  $position
+diceCounter=$(( $diceCounter + 1 ))
+echo "Dice Counter:" $diceCounter "Position -" $position
 done
 }
 
