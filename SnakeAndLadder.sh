@@ -17,6 +17,7 @@ randomNumber=0
 randomNumber2=0
 checkPosition=0
 diceCounter=0
+
 #CHECK VALID POSITION
 function isValidPosition() {
 #CHECK IF LESS THAN 0
@@ -32,35 +33,56 @@ if [ $1 -lt 0 ]
 fi
 }
 
+#PLAY
 function play(){
-while [ $position -ne $WIN_LIMIT ]
-do 
 #RANDOM NUMBER BETWEEN 1-6
 randomNumber=$(( (RANDOM%3) + 1 ))
 randomNumber2=$(( ( RANDOM%6 ) + 1 ))
-printf "DICE NUMBER $randomNumber2 \n"
 if [ $randomNumber -eq $IS_SNAKE ]
 	then
-		printf "SNAKE\n"
 		checkPosition=$( isValidPosition $(( $position - $randomNumber2 )) $position )
-		position=$checkPosition
 	fi
 if [ $randomNumber -eq $IS_LADDER ]
 	then
-		printf "Ladder\n"
 		checkPosition=$( isValidPosition $(( $position + $randomNumber2 )) $position )
-		position=$checkPosition
 fi
 if [ $randomNumber -eq $IS_NOPLAY ]
 	then
-		printf "NOPLAY\n"
 		checkPosition=$(( $position + $NOPLAY ))
-		position=$checkPosition
 fi
-diceCounter=$(( $diceCounter + 1 ))
-echo "Dice Counter:" $diceCounter "Position -" $position
+echo $checkPosition
+}
+
+#DOUBLE PLAYER
+function doublePlayer(){
+local result=0
+local player1=0
+local player2=0
+local counter=0
+while [ $result -eq 0 ]
+do
+	tplayer1=$( isValidPosition $(( $player1 + "$( play )"  ))  $player1 )
+	player1=$tplayer1
+	tplayer2=$( isValidPosition $(( $player2 + "$( play )"  )) $player1 )
+	player2=$tplayer2
+	printf "$counter Player 1 | position $player1\n"
+  	printf "$counter Player 2 | position $player2\n"
+	counter=$(( $counter + 1 ))
+	if [ $player1 -ge 100 ]
+		then
+			printf "player 1 Win "
+			result=1
+			break
+	fi
+	if [ $player2 -ge 100 ]
+		then
+			printf "player 2 Win "
+			result=1
+			break
+	fi
 done
 }
 
+#START FUNCTION
+doublePlayer
 
-play
