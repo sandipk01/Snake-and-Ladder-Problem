@@ -10,8 +10,9 @@ IS_SNAKE=1
 IS_LADDER=2
 IS_NOPLAY=3
 NOPLAY=0
+WIN_LIMIT=100
 #VARIABLE
-position=15
+position=0
 randomNumber=0
 randomNumber2=0
 checkPosition=0
@@ -29,6 +30,8 @@ fi
 }
 
 function play(){
+while [ $position -ne $WIN_LIMIT ]
+do 
 #RANDOM NUMBER BETWEEN 1-6
 randomNumber=$(( (RANDOM%3) + 1 ))
 randomNumber2=$(( ( RANDOM%6 ) + 1 ))
@@ -51,7 +54,9 @@ if [ $randomNumber -eq $IS_NOPLAY ]
 		checkPosition=$(( $position + $NOPLAY ))
 		position=$checkPosition
 fi
-echo "position:" $position 
+echo  $position
+done
 }
+
 
 play
