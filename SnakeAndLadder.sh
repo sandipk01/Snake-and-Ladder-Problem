@@ -17,10 +17,13 @@ randomNumber=0
 randomNumber2=0
 checkPosition=0
 
+#CHECK VALID POSITION
 function isValidPosition() {
+#CHECK IF LESS THAN 0
 if [ $1 -lt 0 ]
 	then
    	echo 0
+#CHECK GREATER THAN 100
    	 elif [ $1 -gt 100 ]
        	then
          	echo $2
