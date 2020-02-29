@@ -6,3 +6,6 @@
 #100 is achieved.
 
 
+#VARIABLE 
+position=0
+
