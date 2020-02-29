@@ -5,7 +5,12 @@
 #a safe place, ladder or a snake keeps doing till the winning spot
 #100 is achieved.
 
-
-#VARIABLE 
+#VARIABLE
 position=0
+randomNumber=0
+
+#RANDOM NUMBER BETWEEN 1-6
+randomNumber=$((  ( RANDOM%6 ) + 1 ))
+
+echo $randomNumber
 
