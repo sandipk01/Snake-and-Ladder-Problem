@@ -36,19 +36,20 @@ fi
 #PLAY
 function play(){
 #RANDOM NUMBER BETWEEN 1-6
+checkPosition=0
 randomNumber=$(( (RANDOM%3) + 1 ))
 randomNumber2=$(( ( RANDOM%6 ) + 1 ))
 if [ $randomNumber -eq $IS_SNAKE ]
 	then
-		checkPosition=$( isValidPosition $(( $position - $randomNumber2 )) $position )
+		checkPosition=$( isValidPosition $(( $1 - $randomNumber2 )) $1 )
 	fi
 if [ $randomNumber -eq $IS_LADDER ]
 	then
-		checkPosition=$( isValidPosition $(( $position + $randomNumber2 )) $position )
+		checkPosition=$( isValidPosition $(( $1 + $randomNumber2 )) $1 )
 fi
 if [ $randomNumber -eq $IS_NOPLAY ]
 	then
-		checkPosition=$(( $position + $NOPLAY ))
+		checkPosition=$(( $1 + $NOPLAY ))
 fi
 echo $checkPosition
 }
@@ -61,10 +62,10 @@ local player2=0
 local counter=0
 while [ $result -eq 0 ]
 do
-	tplayer1=$( isValidPosition $(( $player1 + "$( play )"  ))  $player1 )
-	player1=$tplayer1
-	tplayer2=$( isValidPosition $(( $player2 + "$( play )"  )) $player1 )
-	player2=$tplayer2
+	 tplayer1="$( play $player1 )"
+	 player1=$tplayer1
+	 tplayer2="$( play $player2 )"
+	 player2=$tplayer2
 	printf "$counter Player 1 | position $player1\n"
   	printf "$counter Player 2 | position $player2\n"
 	counter=$(( $counter + 1 ))
