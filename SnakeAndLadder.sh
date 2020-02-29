@@ -5,12 +5,55 @@
 #a safe place, ladder or a snake keeps doing till the winning spot
 #100 is achieved.
 
+#CONSTANTS
+IS_SNAKE=1
+IS_LADDER=2
+IS_NOPLAY=3
+NOPLAY=0
 #VARIABLE
-position=0
+position=15
 randomNumber=0
+randomNumber2=0
+checkPosition=0
 
+function isValidPosition(){
+  if [ $1 -lt 0 ]
+  	then
+   	 echo 0
+   	 elif [ $1 -gt 100 ]
+       	then
+         	echo $2
+      	else
+         	echo $1
+   fi
+}
+
+function play(){
 #RANDOM NUMBER BETWEEN 1-6
-randomNumber=$((  ( RANDOM%6 ) + 1 ))
+randomNumber=$(( (RANDOM%3) + 1 ))
+randomNumber2=$((  ( RANDOM%6 ) + 1 ))
+echo "DICE NUMBER" $randomNumber2
+if [ $randomNumber -eq $IS_SNAKE ]
+	then
+		echo "SNAKE"
+		checkPosition=$( isValidPosition $(( $position - $randomNumber2 )) $position )
+		position=$checkPosition
+	fi
+if [ $randomNumber -eq $IS_LADDER ]
+	then
+		echo "Ladder"
+		checkPosition=$( isValidPosition $(( $position + $randomNumber2 )) $position )
+		position=$checkPosition
+fi
+if [ $randomNumber -eq $IS_NOPLAY ]
+	then
+		echo "NOPLAY"
+		checkPosition=$(( $position + $NOPLAY ))
+		position=$checkPosition
+fi
+echo "position:" $position
+}
 
-echo $randomNumber
+play
+
 
