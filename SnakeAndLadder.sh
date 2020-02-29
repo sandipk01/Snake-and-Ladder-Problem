@@ -16,44 +16,42 @@ randomNumber=0
 randomNumber2=0
 checkPosition=0
 
-function isValidPosition(){
-  if [ $1 -lt 0 ]
-  	then
-   	 echo 0
+function isValidPosition() {
+if [ $1 -lt 0 ]
+	then
+   	echo 0
    	 elif [ $1 -gt 100 ]
        	then
          	echo $2
       	else
          	echo $1
-   fi
+fi
 }
 
 function play(){
 #RANDOM NUMBER BETWEEN 1-6
 randomNumber=$(( (RANDOM%3) + 1 ))
-randomNumber2=$((  ( RANDOM%6 ) + 1 ))
-echo "DICE NUMBER" $randomNumber2
+randomNumber2=$(( ( RANDOM%6 ) + 1 ))
+printf "DICE NUMBER $randomNumber2 \n"
 if [ $randomNumber -eq $IS_SNAKE ]
 	then
-		echo "SNAKE"
+		printf "SNAKE\n"
 		checkPosition=$( isValidPosition $(( $position - $randomNumber2 )) $position )
 		position=$checkPosition
 	fi
 if [ $randomNumber -eq $IS_LADDER ]
 	then
-		echo "Ladder"
+		printf "Ladder\n"
 		checkPosition=$( isValidPosition $(( $position + $randomNumber2 )) $position )
 		position=$checkPosition
 fi
 if [ $randomNumber -eq $IS_NOPLAY ]
 	then
-		echo "NOPLAY"
+		printf "NOPLAY\n"
 		checkPosition=$(( $position + $NOPLAY ))
 		position=$checkPosition
 fi
-echo "position:" $position
+echo "position:" $position 
 }
 
 play
-
-
